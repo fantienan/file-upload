@@ -1,5 +1,6 @@
 const BaseController = require("./base")
 const svgCaptcha = require("svg-captcha")
+const path = require('path')
 const fse = require('fs-extra')
 
 class UtilController extends BaseController {
@@ -33,14 +34,29 @@ class UtilController extends BaseController {
             this.error('发送失败')
         }
     }
+    async mergeFile() {
+        const { ext, hash, size } = this.ctx.request.body
+        const filePath = path.resolve(this.config.UPLOAD_DIR, hash)
+        await this.ctx.service.tools.mergeFile(filePath, hash, size)
+        this.success({
+            url: `/public/${hash}.${ext}`
+        })
+    }
     async uploadfile() {
         const { ctx } = this
         const [file] = ctx.request.files
-        const { name } = ctx.request.body
-        await fse.move(file.filepath, this.config.UPLOAD_DIR +"/" + file.filename)
-        this.success({
-            url: `/public/${file.filename}`
-        })
+        const { hash, name } = ctx.request.body
+        // /public/hash/(hahs + index) 存放chunks
+        const chunkPath = path.resolve(this.config.UPLOAD_DIR, hash)
+        // const filePath = path.resolve() // 文件最终存储的位置，合并之后的存储位置
+        if (!fse.existsSync(chunkPath)) {
+            await fse.mkdir(chunkPath)
+        }
+        await fse.move(file.filepath, `${chunkPath}/${name}`)
+        this.message('切片上传成成功')
+        // this.success({
+        //     url: `/public/${file.filename}`
+        // })
     }
 }
 

@@ -14,6 +14,8 @@ module.exports = app => {
   router.get('/sendcode', controller.util.sendcode)
   // 文件上传
   router.post('/uploadFile', controller.util.uploadfile)
+  // 合并文件chunks
+  router.post('/mergeFile', controller.util.mergeFile)
   // 注册路由
   router.group({ name: 'user', prefix: '/user' }, router => {
     const { info, register, login, verify } = controller.user

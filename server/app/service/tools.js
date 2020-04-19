@@ -34,14 +34,17 @@ class ToolService extends Service {
             return false
         }
     }
-    async mergeFile(filePath, hash, size) {
-        const chunkDir = path.resolve( filePath) // 切片文件夹
-        const chunks = await fse.readdir(chunkDir)
+    async mergeFile(filePath, fileHash, size) {
+        let chunkDir = path.resolve(this.config.UPLOAD_DIR, fileHash) // 切片文件夹
+        let chunks = await fse.readdir(chunkDir)
         chunks.sort((a, b) => a.split('-')[1] - b.split('-')[1])
         chunks.map(cp => path.resolve(chunkDir, cp))
         await this.mergeChunks(chunks, filePath, size)
     }
     async mergeChunks(files, dest, size) {
+        console.log('---------------')
+        console.log(files)
+        console.log(dest)
         const pipStream = (filePath, writeStream) => new Promise(resolve => {
             const readStream = fse.createReadStream(filePath)
             readStream.on('end', () => {

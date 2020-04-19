@@ -16,6 +16,8 @@ module.exports = app => {
   router.post('/uploadFile', controller.util.uploadfile)
   // 合并文件chunks
   router.post('/mergeFile', controller.util.mergeFile)
+  // 断点续传
+  router.post('/checkfile', controller.util.checkfile)
   // 注册路由
   router.group({ name: 'user', prefix: '/user' }, router => {
     const { info, register, login, verify } = controller.user

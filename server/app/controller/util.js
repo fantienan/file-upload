@@ -36,13 +36,40 @@ class UtilController extends BaseController {
     }
     async mergeFile() {
         const { ext, hash, size } = this.ctx.request.body
-        const filePath = path.resolve(this.config.UPLOAD_DIR, hash)
+        const filePath = path.resolve(this.config.UPLOAD_DIR, `${hash}.${ext}`)
         await this.ctx.service.tools.mergeFile(filePath, hash, size)
         this.success({
             url: `/public/${hash}.${ext}`
         })
     }
+    async checkfile() {
+        const {ctx} = this
+        const {ext, hash} = ctx.request.body
+        const filePath = path.resolve(this.config.UPLOAD_DIR, `${hash}.${ext}`)
+
+        let uploaded = false
+        let uploadedList = []
+        if (fse.existsSync(filePath)) {
+            // 文件存在
+            uploaded = true 
+        } else {
+            uploadedList = await this.getUploadedList(path.resolve(this.config.UPLOAD_DIR, hash))
+        }
+        this.success({
+            uploaded,
+            uploadedList
+        })
+    }
+    async getUploadedList(dirPath) {
+        return fse.existsSync(dirPath) ? 
+        fse.readdirSync(dirPath).filter(name => name[0] !== '.') // 规避隐藏文件
+        : []
+    }
     async uploadfile() {
+        // 模拟报错
+        // if (Math.random() > 0.2) {
+            return this.ctx.status = 500
+        // }
         const { ctx } = this
         const [file] = ctx.request.files
         const { hash, name } = ctx.request.body

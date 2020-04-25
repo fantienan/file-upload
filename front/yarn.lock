@@ -4385,6 +4385,11 @@ hex-color-regex@^1.1.0:
   resolved "http://r.cnpmjs.org/hex-color-regex/download/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha1-TAb8y0YC/iYCs8k9+C1+fb8aio4=
 
+highlight.js@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.npm.taobao.org/highlight.js/download/highlight.js-10.0.0.tgz#839b831198f0fa6b8dd534ff2cc701466e404c8b"
+  integrity sha1-g5uDEZjw+muN1TT/LMcBRm5ATIs=
+
 hmac-drbg@^1.0.0:
   version "1.0.1"
   resolved "http://r.cnpmjs.org/hmac-drbg/download/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"
@@ -5891,6 +5896,11 @@ map-visit@^1.0.0:
   integrity sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
   dependencies:
     object-visit "^1.0.0"
+
+marked@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/marked/download/marked-1.0.0.tgz?cache=0&sync_timestamp=1587431551882&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmarked%2Fdownload%2Fmarked-1.0.0.tgz#d35784245a04871e5988a491e28867362e941693"
+  integrity sha1-01eEJFoEhx5ZiKSR4ohnNi6UFpM=
 
 md5.js@^1.3.4:
   version "1.3.5"

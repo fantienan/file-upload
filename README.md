@@ -1,12 +1,18 @@
 # 同构文件上传
 
 ## 特点
-> 拖拽上传、普通上传、复制粘贴上传
-> 通过文件的十六进制信息进行文件校验
-> 断点续传
-> 计算文件指纹（web worker、时间切片）
-> 并发数据
-> 慢启动
+1. 文件上传
+   - 拖拽上传、普通上传、复制粘贴上传
+   - 通过文件的十六进制信息进行文件校验
+   - 断点续传
+   - 计算文件指纹（web worker、时间切片）
+   - 并发数据
+   - 慢启动
+2. marked文档在线编辑
+   - [marked](https://github.com/markedjs/marked)
+   - [highlight.js](https://github.com/highlightjs/highlight.js)
+   - 拖拽、赋值\粘贴上传图片
+   
 
 ## 解析
 1. 拖拽上传、复制粘贴上传、普通上传

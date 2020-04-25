@@ -7,7 +7,7 @@
       </el-form-item>
       <el-form-item prop="captcha" label="验证码" class="captcha-item">
         <el-input v-model="form.captcha" class="captcha-input" placeholder="请输入验证码"></el-input>
-		<div class="captcha">
+        <div class="captcha">
           <img :src="code.captcha" alt @click="resetCaptcha" />
         </div>
       </el-form-item>
@@ -34,15 +34,15 @@ export default {
   layout: "login",
   methods: {
     async sendEmailCode() {
-		await this.$http.get('/sendcode?email=' + this.form.email)
-		this.send.timer = 10
-		this.timer = setInterval(() => {
-			this.send.timer -= 1
-			if (this.send.timer == 0) {
-				clearInterval(this.timer)
-			}
-		}, 1000)
-	},
+      await this.$http.get("/sendcode?email=" + this.form.email);
+      this.send.timer = 10;
+      this.timer = setInterval(() => {
+        this.send.timer -= 1;
+        if (this.send.timer == 0) {
+          clearInterval(this.timer);
+        }
+      }, 1000);
+    },
     handleLogin() {
       this.$refs.loginForm.validate(async valid => {
         if (valid) {
@@ -50,12 +50,12 @@ export default {
             email: this.form.email,
             passwd: md5(this.form.passwd),
             captcha: this.form.captcha,
-            emailCode: this.form.emailCode,
+            emailCode: this.form.emailCode
           };
           let ret = await this.$http.post("/user/login", param);
           if (ret.code == 0) {
-			this.$message("登录成功");
-			localStorage.setItem('token', ret.data.token)
+            this.$message("登录成功");
+            localStorage.setItem("token", ret.data.token);
             setTimeout(() => {
               this.$router.push("/");
             }, 500);
@@ -114,12 +114,16 @@ export default {
 </script>
 
 <style lang="stylus">
-	.captcha-item, .email-code-container
-		.el-form-item__content
-			display flex
-	.email-code-container
-		.el-button
-			width 100px
-			margin-left 14px		
+.captcha-item, .email-code-container {
+  .el-form-item__content {
+    display: flex;
+  }
+}
 
+.email-code-container {
+  .el-button {
+    width: 100px;
+    margin-left: 14px;
+  }
+}
 </style>
